@@ -1,6 +1,7 @@
 
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
-import { auth } from "../../firebaseconfig";
+import { auth } from "../../firebaseConfig";
+
 
 
 const signUpSuc = () => {

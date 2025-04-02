@@ -35,13 +35,12 @@ const ViewProduct = () => {
               <Card.Body>
                 <Card.Title className="mb-3 font-weight-bold"><strong>TITLE :</strong> {product.title}</Card.Title>
                 <ul className="list-group list-group-flush">
-                  <li className="list-group-item"><strong>PRICE :</strong> ₹{product.price}</li>
-                  <li className="list-group-item"><strong>SIZE :</strong> {product.size}</li>
+                  <li className="list-group-item"><strong>description :</strong> ₹{product.description}</li>
+                  <li className="list-group-item"><strong>date :</strong> {product.date}</li>
                   <li className="list-group-item"><strong>CATEGORY:</strong> {product.category}</li>
                 </ul>
                 <p className="mt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis<br />  lorem ut liberomalesuada feugiat. A "text description" or "alt text"<br /> provides a textual representation of an image.<br /> or visual element, making it accessible to users who cannot see the image,<br /> such as those using screen readers. </p>
               </Card.Body>
-              <Button>BUY NOW</Button>
             </Col>
           </Row>
         </Card>

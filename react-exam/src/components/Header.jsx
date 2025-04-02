@@ -2,8 +2,7 @@
 import { Button, Container, Navbar, Offcanvas, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom"; 
 import { HiUserCircle } from "react-icons/hi2";
-import { IoCart } from "react-icons/io5";
-import { IoCartSharp } from "react-icons/io5";
+import { FaUserCheck } from "react-icons/fa";
 import { IoIosAddCircle } from "react-icons/io";
 import { PiDotsThreeVerticalBold } from "react-icons/pi";
 import { BiLogOutCircle } from "react-icons/bi";
@@ -31,18 +30,19 @@ const cart = useSelector(state => state.cart || {});
             <Navbar className="bg-body-tertiary">
                 <Container>
                     <Navbar.Brand href="/">
-                        <img 
-                            src="https://static-assets-web.flixcart.com/batman-returns/batman-returns/p/images/fkheaderlogo_exploreplus-44005d.svg" 
+                        <img  
+                            className="header_logo"
+                            src="https://w1.pngwing.com/pngs/964/495/png-transparent-social-media-icons-blog-blogger-symbol-wordpress-blue-text-technology.png" 
                             alt="Logo" 
                         />
                     </Navbar.Brand>
                     <Navbar.Toggle />
                     <Navbar.Collapse className="justify-content-end">
                         <Navbar.Text>
-                          
-                            <Link to="/cart"><IoCartSharp /> Cart ({cartItems.length})</Link>
+
+                            <Link to="/profile"><FaUserCheck /> User Profile</Link>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <Link to="/add"><IoIosAddCircle /> Add Product</Link>
+                            <Link to="/add"><IoIosAddCircle /> post form</Link>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             {user ? (
                                 <Button className="logout" onClick={handleLogout}>

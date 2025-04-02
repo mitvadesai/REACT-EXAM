@@ -5,10 +5,10 @@ import Home from './components/Home'
 import AddProduct from './components/AddProduct'
 import EditProduct from './components/EditProduct'
 import Footer from './components/Footer'
-import Login from './components/login'
 import Register from './components/register'
 import ViewProduct from './components/ViewProduct'
-import Addtocart from './components/Addtocart'
+import Login from './components/Login'
+import UserProfile from './components/userprofile'
 
 function App() {
 
@@ -22,8 +22,7 @@ function App() {
         <Route path='/add' element={<AddProduct />} />
         <Route path='/edit/:id' element={<EditProduct />} />
         <Route path='/view/:id' element={<ViewProduct />} />
-        <Route path='/cart/:id' element={<Addtocart />} />
-        <Route path='/cart' element={<Addtocart />} />
+        <Route path='/profile' element={<UserProfile />} />
       </Routes>
       <Footer />
     </>

@@ -13,8 +13,8 @@ const EditProduct = () => {
     const [inputData, setInputData] = useState({
         id: "",
         title: "",
-        price: "",
-        size: "",
+        description: "",
+        date: "",
         image: "",
         category: ""
     })
@@ -26,6 +26,16 @@ const EditProduct = () => {
             [name]: value
         })
     }
+
+    const handleImage = async(e) => {
+            let file = e.target.files[0];
+            if(!file) return;
+            let url = await uploadImage(file);
+            setInputData({
+                ...inputData,
+                image: `${url}`
+            });
+        };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -64,18 +74,18 @@ const EditProduct = () => {
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
                         <Form.Label column sm="2">
-                        price
+                        description
                         </Form.Label>
                         <Col sm="4">
-                            <Form.Control type="text" name="price" value={inputData.price} onChange={handleChanged} placeholder="Enter price" />
+                            <Form.Control type="text" name="description" value={inputData.description} onChange={handleChanged} placeholder="Enter description" />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
                         <Form.Label column sm="2">
-                            size
+                        date
                         </Form.Label>
                         <Col sm="4">
-                            <Form.Control type="text" name="size" value={inputData.size} onChange={handleChanged} placeholder="Enter size" />
+                            <Form.Control type="text" name="date" value={inputData.date} onChange={handleChanged} placeholder="Enter date" />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
@@ -83,7 +93,7 @@ const EditProduct = () => {
                              Image
                         </Form.Label>
                         <Col sm="4">
-                            <Form.Control type="text" name="image" value={inputData.image} onChange={handleChanged} placeholder="Enter Image URL" />
+                            <Form.Control type="file" name="image" onChange={handleImage} />
                         </Col>
                     </Form.Group>
                     <Form.Group as={Row} className="mb-3">
@@ -92,18 +102,16 @@ const EditProduct = () => {
                         </Form.Label>
                         <Col sm="4">
                             <Form.Select aria-label="Default select example" name="category" onChange={handleChanged}>
-                                <option>Select</option>
-                                <option value="colths">colths</option>
-                                <option value="footware">footware</option>
-                                <option value="elctrinic">elctrinic</option>
-                                <option value="furnicher">furnicher</option>
-                                <option value="beauty">beauty</option>
-                                <option value="beauty">food</option>
-                                <option value="beauty">fashion</option>
+                            <option value="">Select</option>
+                            <option value="Travel blogs">Travel blogs</option>
+                            <option value="Health and fitness blogs ">Health and fitness blogs </option>
+                            <option value="Lifestyle blogs">Lifestyle blogs</option>
+                            <option value=" beauty blogs"> beauty blogs</option>
+                            <option value="Personal blogs">Personal blogs</option>
                             </Form.Select>
                         </Col>
                     </Form.Group>
-                    <Button type="submit">Edit Product</Button>
+                    <Button type="submit">Edit Post</Button>
                 </Form>
             </Container>
         </>

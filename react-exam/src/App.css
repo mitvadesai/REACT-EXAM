@@ -3,7 +3,7 @@
 }
 
 .crd_img{
-    width: 285px;
+    width: 365px;
     height: 300px;
     object-fit: cover;
     margin: 10px;
@@ -12,6 +12,10 @@
   }
   .list-group-item+.list-group-item {
     border: none;
+}
+.header_logo{
+    width: 140px;
+    height: 80px;
 }
 .list-group-item:first-child {
    border: none;

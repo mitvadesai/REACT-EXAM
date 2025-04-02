@@ -12,39 +12,22 @@ const AddProduct = () => {
     
     const [inputData, setInputData] = useState({
         title: "",
-        price: "",
-        size: "",
+        description: "",
+        date: "",
         image: "",
         category: ""
     });
-
     const [errors, setErrors] = useState({});
 
     const validate = () => {
-        let newErrors = {};
-
-        if (!inputData.title.trim()) {
-            newErrors.title = "Title is required.";
-        } else if (inputData.title.length < 3) {
-            newErrors.title = "Title must be at least 3 characters.";
-        }
-
-        if (!inputData.price.trim()) {
-            newErrors.price = "Price is required.";
-        } else if (isNaN(inputData.price) || Number(inputData.price) <= 0) {
-            newErrors.price = "Price must be a valid positive number.";
-        }
-
-        if (!inputData.size.trim()) {
-            newErrors.size = "Size is required.";
-        }
-
-        if (!inputData.category) {
-            newErrors.category = "Please select a category.";
-        }
-
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
+        let errors = {};
+        if (!inputData.title.trim()) errors.title = "Title is required";
+        if (!inputData.description.trim()) errors.description = "Description is required";
+        if (!inputData.date) errors.date = "Date is required";
+        if (!inputData.image) errors.image = "Image is required";
+        if (!inputData.category) errors.category = "Category is required";
+        setErrors(errors);
+        return Object.keys(errors).length === 0;
     };
 
     const handleChanged = (e) => {
@@ -57,22 +40,19 @@ const AddProduct = () => {
 
     const handleImage = async(e) => {
         let file = e.target.files[0];
-
-        if(!file)   
-            return;
-        let url = await uploadImage(file)
+        if(!file) return;
+        let url = await uploadImage(file);
         setInputData({
             ...inputData,
             image: `${url}`
-        })
-    }
+        });
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (validate()) {
-            let id = Math.floor(Math.random() * 100000).toString();
-            dispatch(AddProductAsync({ ...inputData, id }));
-        }
+        if (!validate()) return;
+        let id = Math.floor(Math.random() * 100000).toString();
+        dispatch(AddProductAsync({ ...inputData, id }));
     };
 
     useEffect(() => {
@@ -84,35 +64,39 @@ const AddProduct = () => {
     return (
         <Container className="mt-3">
             <Form onSubmit={handleSubmit}>
+                {Object.values(errors).map((error, index) => (
+                    <Alert key={index} variant="danger">{error}</Alert>
+                ))}
+                
                 <Form.Group as={Row} className="mb-3">
                     <Form.Label column sm="2">Title</Form.Label>
                     <Col sm="4">
                         <Form.Control type="text" name="title" value={inputData.title} onChange={handleChanged} placeholder="Enter Title" />
-                        {errors.title && <Alert variant="danger" className="mt-2">{errors.title}</Alert>}
+                        {errors.title && <small className="text-danger">{errors.title}</small>}
                     </Col>
                 </Form.Group>
 
                 <Form.Group as={Row} className="mb-3">
-                    <Form.Label column sm="2">Price</Form.Label>
+                    <Form.Label column sm="2">Description</Form.Label>
                     <Col sm="4">
-                        <Form.Control type="text" name="price" value={inputData.price} onChange={handleChanged} placeholder="Enter Price" />
-                        {errors.price && <Alert variant="danger" className="mt-2">{errors.price}</Alert>}
+                        <Form.Control type="text" name="description" value={inputData.description} onChange={handleChanged} placeholder="Enter Description" />
+                        {errors.description && <small className="text-danger">{errors.description}</small>}
                     </Col>
                 </Form.Group>
 
                 <Form.Group as={Row} className="mb-3">
-                    <Form.Label column sm="2">Size</Form.Label>
+                    <Form.Label column sm="2">Date</Form.Label>
                     <Col sm="4">
-                        <Form.Control type="text" name="size" value={inputData.size} onChange={handleChanged} placeholder="Enter Size" />
-                        {errors.size && <Alert variant="danger" className="mt-2">{errors.size}</Alert>}
+                        <Form.Control type="date" name="date" value={inputData.date} onChange={handleChanged} placeholder="Enter Date" />
+                        {errors.date && <small className="text-danger">{errors.date}</small>}
                     </Col>
                 </Form.Group>
 
                 <Form.Group as={Row} className="mb-3">
                     <Form.Label column sm="2">Image</Form.Label>
                     <Col sm="4">
-                        <Form.Control type="file" name="image" onChange={handleImage}  />
-                        {errors.image && <Alert variant="danger" className="mt-2">{errors.image}</Alert>}
+                        <Form.Control type="file" name="image" onChange={handleImage} />
+                        {errors.image && <small className="text-danger">{errors.image}</small>}
                     </Col>
                 </Form.Group>
 
@@ -121,19 +105,17 @@ const AddProduct = () => {
                     <Col sm="4">
                         <Form.Select name="category" value={inputData.category} onChange={handleChanged}>
                             <option value="">Select</option>
-                            <option value="colths">Cloths</option>
-                            <option value="footware">Footware</option>
-                            <option value="elctrinic">Electronics</option>
-                            <option value="furnicher">Furniture</option>
-                            <option value="beauty">Beauty</option>
-                            <option value="beauty">food</option>
-                            <option value="beauty">fashion</option>
+                            <option value="Travel blogs">Travel blogs</option>
+                            <option value="Health and fitness blogs">Health and fitness blogs</option>
+                            <option value="Lifestyle blogs">Lifestyle blogs</option>
+                            <option value="Beauty blogs">Beauty blogs</option>
+                            <option value="Personal blogs">Personal blogs</option>
                         </Form.Select>
-                        {errors.category && <Alert variant="danger" className="mt-2">{errors.category}</Alert>}
+                        {errors.category && <small className="text-danger">{errors.category}</small>}
                     </Col>
                 </Form.Group>
 
-                <Button type="submit">Add Product</Button>
+                <Button type="submit">Add Post</Button>
             </Form>
         </Container>
     );

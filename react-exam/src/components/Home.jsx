@@ -8,6 +8,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import { FaEye } from "react-icons/fa";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import { addToCart } from "../services/actions/cartaction";
+import { CiViewList } from "react-icons/ci";
 
 
 const Home = () => {
@@ -69,7 +70,7 @@ const Home = () => {
    
 const handleAddToCart = (product) => {
     dispatch(addToCart(product)); 
-    alert(`${product.title} added to cart!`); 
+    alert(`${product.title} added to list!`); 
 };
 
     const handleSizeChange = (event) => {
@@ -78,6 +79,7 @@ const handleAddToCart = (product) => {
             prev.includes(size) ? prev.filter(s => s !== size) : [...prev, size]
         );
     };
+    // <h2>filteredProducts</h2>
     let filteredProducts = 
     Products && Products.length > 0 
         ? Products.filter(product => 
@@ -124,20 +126,7 @@ const handleAddToCart = (product) => {
 
     return (
         <Container className="mt-3">
-             <Carousel className="mb-4">
-                <Carousel.Item>
-                    <img className="d-block w-100" src="https://rukminim1.flixcart.com/fk-p-flap/1620/270/image/173cacfaf069fe7d.png?q=20" alt="First Offer" />
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img className="d-block w-100" src="https://rukminim1.flixcart.com/fk-p-flap/1620/270/image/10e15f15b32bcddc.jpg?q=20" alt="First Offer" />
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img className="d-block w-100" src="https://rukminim1.flixcart.com/fk-p-flap/1620/270/image/8921fc73c192a29f.jpg?q=20" alt="Second Offer" />
-                </Carousel.Item>
-                <Carousel.Item>
-                    <img className="d-block w-100" src="https://rukminim1.flixcart.com/fk-p-flap/1620/270/image/373914b13f0b4dfb.jpg?q=20" alt="Third Offer" />
-                </Carousel.Item>
-            </Carousel>
+           
             <Row>
                 {/* Sidebar */}
                 <Col md={3}>
@@ -151,26 +140,8 @@ const handleAddToCart = (product) => {
                             />
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <Form.Label>Sort by Price</Form.Label>
-                            <Form.Check
-                                type="radio"
-                                label="Low to High"
-                                name="sortPrice"
-                                value="lowToHigh"
-                                onChange={handleSortChange}
-                                checked={sortBy === "lowToHigh"}
-                            />
-                            <Form.Check
-                                type="radio"
-                                label="High to Low"
-                                name="sortPrice"
-                                value="highToLow"
-                                onChange={handleSortChange}
-                                checked={sortBy === "highToLow"}
-                            />
-                        </ListGroup.Item>
-                        <ListGroup.Item>
-                            <Form.Label>Filter by Category</Form.Label>
+                        <h2> FILTERING BOLGS :</h2><br/>
+                            <Form.Label> FILTER BY CATEGORY :</Form.Label>
                             {uniqueCategories.map(category => (
                                 <Form.Check
                                     key={category}
@@ -183,7 +154,7 @@ const handleAddToCart = (product) => {
                             ))}
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <Form.Label>Filter by Title</Form.Label>
+                            <Form.Label>FILTER BY TITLE :</Form.Label>
                             {uniqueTitles.map(title => (
                                 <Form.Check
                                     key={title}
@@ -195,19 +166,7 @@ const handleAddToCart = (product) => {
                                 />
                             ))}
                         </ListGroup.Item>
-                        <ListGroup.Item>
-                            <Form.Label>Filter by Size</Form.Label>
-                            {uniqueSizes.map(size => (
-                                <Form.Check
-                                    key={size}
-                                    type="checkbox"
-                                    label={size}
-                                    value={size}
-                                    onChange={handleSizeChange}
-                                    checked={selectedSizes.includes(size)}
-                                />
-                            ))}
-                        </ListGroup.Item>
+                       
                     </ListGroup>
                 </Col>
                 
@@ -220,20 +179,20 @@ const handleAddToCart = (product) => {
                             <Row>
                                 {currentProducts.length > 0 ? (
                                     currentProducts.map((Product) => (
-                                        <Col md={4} key={Product.id} className="mb-4">
+                                        <Col md={5} key={Product.id} className="mb-4 ms-5">
                                             <Card>
                                                 <Card.Img variant="top" src={Product.image} className="crd_img" />
                                                 <Card.Body>
                                                     <Card.Text>
-                                                        <strong>Title :</strong> {Product.title} <Button className="view" variant="primary" onClick={() => handleView(Product.id)}><i><FaEye /></i></Button> <br />
-                                                        <strong>Price :</strong> ₹{Product.price} <br />
-                                                        <strong>Size :</strong> {Product.size} <br />
-                                                        <strong>Category :</strong> {Product.category}
+                                                        <strong>Title :</strong> {Product.title} <br /><br />
+                                                        <strong>description :</strong>{Product.description} <br /><br />
+                                                        <strong>date:</strong> {Product.date} <br /><br />
+                                                        <strong>Category :</strong> {Product.category}<br />
                                                     </Card.Text>
-                                                    <Button variant="primary" onClick={() => handleEdit(Product.id)}><TbEdit /> Edit</Button>
+                                                    <Button variant="primary" className="ms-3" onClick={() => handleEdit(Product.id)}><TbEdit /> Edit</Button>
                                                     <Button variant="danger" className="ms-2" onClick={() => handleDelete(Product.id)}><MdDeleteOutline /> Delete</Button>
-                                                    {/* <Button variant="primary" className="ms-2" onClick={() => handleView(Product.id)}><FaEye /> view</Button> */}
-                                                    <Button variant="primary" className="ms-2" onClick={() => handleAddToCart(Product)}> <MdOutlineShoppingCart /> Cart</Button>
+                                                    <Button className="ms-2" variant="primary" onClick={() => handleView(Product.id)}><FaEye /> Details</Button>
+                                                    
                                                 </Card.Body>
                                             </Card>
                                         </Col>

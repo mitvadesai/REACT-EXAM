@@ -1,5 +1,6 @@
-import { db } from '../../firebaseconfig';
+
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs,  updateDoc } from 'firebase/firestore';
+import { db } from '../../firebaseConfig';
 
 
 export const addProduct = () => {
